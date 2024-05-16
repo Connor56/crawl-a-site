@@ -36,13 +36,14 @@ the `host.docker.internal` variable to proxy pass requests it may fail on
 Linux.
 
 If you have a Linux machine, and you find that the app is returning
-404s resource not found. Please look in the following file:
+`404`s resource not found, starting from the `crawl-a-site` root
+directory, look in the following file:
 
 ```bash
 nginx/conf/nginx.conf
 ```
 
-and alter the FastAPI server proxy pass section to fit Linux:
+and find the FastAPI server proxy pass section:
 
 ```nginx
 # Proxy API requests to the FastAPI server
@@ -55,6 +56,11 @@ location /api/ {
     proxy_buffering off; # Ensure real-time updates are sent immediately
 }
 ```
+
+This proxy passes traffic to localhost/api of the nginx container to
+host port 8000. But the `host.docker.internal` may be specific to
+Windows and MacOS. If this is the case, alter this so that it works
+in your linux system.
 
 ## Clone the package to your local machine
 
