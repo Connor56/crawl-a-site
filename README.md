@@ -26,6 +26,7 @@ These were my focuses for the build:
 7. Graceful shutdown of resources when a crawl is finished.
 8. Manual shutdown of the crawl and its resources when required by the user.
 9. Containerise the frontend and the backend separately so they can be horizontally scaled.
+10. Prevent server overload with dynamic request timing.
 
 ### Frontend
 
@@ -42,25 +43,64 @@ code faster to develop. As the application is in an alpha stage, I
 didn't consider the time and money investment required for
 cloud deployment worthwhile.
 
+I used a React frontend because this application has a small frontend
+and a large, high-compute backend. Therefore, the potential extra
+costs of data transfer due to minified react being larger than other
+frameworks like Svelte is minimal. In terms of speed, the project
+is small, and it's unlikely there would be a noticeable UX benefit
+from using a faster framework, so I chose the framework I know best.
+This is technically a trade off between performance and development
+speed, but in my opinion an insignificant one.
+
 ### Backend
 
 I built my backend server using Asycnhronous functions and FastAPI. I
 chose FastAPI because it's the fastest, lightest weight Python
 application server available. I limited myself to Python frameworks
 because time constraints meant I had to focus on what I knew best.
-This was the biggest trade off I made in tech stack, development
-speed for performance. If I had more time, I would have explored the
-available frameworks in Go, for example Fibre and Echo. I believe my
-trade off in this situation was rational, because it allowed me to
-develop the features I was asked to develop, and provides a good
-benchmark and scaffold to build from.
+This was the biggest trade off I made in the tech stack, development
+speed for backend performance. If I had more time, I would have
+explored the available frameworks in Go, for example Fibre and Echo.
+This is rational trade off because it allowed me to develop the
+features I was asked to, and provides a good benchmark and
+scaffold to build from.
 
-Because of
+One of foreseeable downsides of using a low performance framework is
+the potential for worker slow downs because of data transfer. To get
+data transfer as low as possible, I setup a message queue that
+streams small updates with information every time a site is
+visited, and placed the sitemap building logic on the client side.
+Keeping expensive computation on the client side increases the
+throughput of the backend, and lowers costs.
 
 The asynchronous design of the API allows multiple crawl processes to
 be run at the same time. Each process is assigned a session ID and
 session details that allow the client to interact with the process
-after its begun.
+after its begun. Within each crawl session, an `asyncio.Queue` is
+shared among the crawlers, which spreads the work across them both
+equally. Similarly, because the crawlers are crawling the same root
+domain, a joint object for backoff is shared between them and used to
+coordinate wait times. The backoff time is updated every time a
+request succeeds or fails.
+
+The crawlers associated with a crawling session are tracked and when
+the `asyncio.Queue` has emptied they're shutdown gracefully. A run
+flag is also passed to the crawlers, which can be cleared by the client
+to pause them. The queue can then be drained, and the crawl session
+will automatically end.
+
+I containerised the whole application in Docker to meet horizontal
+scaling requirements, and make it easier for a potential client to
+deploy.
+
+All testing completed on this project was manual, as it involved
+a lot of exploratory work. This resulted in a trade off between early
+development speed and stability + solid performance metrics + later
+development speed. For a full-stack potentially high throughput
+solution, I believe metrics is what this project lacks the most, and
+that would be my immediate next focus. I would use the metrics to
+plan a beta build, with deeper testing, telemetry data in the UI, and
+the ability to deploy to the cloud.
 
 # How to run using Docker
 
