@@ -46,14 +46,14 @@ and alter the FastAPI server proxy pass section to fit Linux:
 
 ```nginx
 # Proxy API requests to the FastAPI server
-        location /api/ {
-            proxy_pass http://host.docker.internal:8000/;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-            proxy_buffering off; # Ensure real-time updates are sent immediately
-        }
+location /api/ {
+    proxy_pass http://host.docker.internal:8000/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_buffering off; # Ensure real-time updates are sent immediately
+}
 ```
 
 ## Clone the package to your local machine
