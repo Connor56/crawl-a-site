@@ -126,10 +126,48 @@ The Docker run command above uses three flags:
 
 ## Use the application
 
-Navigate to your localhost by visiting the following url:
+Navigate to your localhost by visiting the following URL:
 
-```
-http://localhost
-```
+[`http://localhost`](HTTP://localhost)
 
 You'll be presented with the following interface:
+
+![image](https://github.com/Connor56/crawl-a-site/assets/34070858/67648142-4d6f-49a3-8cfe-1e789ac2f6d8)
+
+Enter an url that you'd like to crawl. Because this application is in an
+alpha stage your url must be precise. You must include the protocol you'd
+like to use, e.g. `http` or `https`, and the prefix `www.`. These will not be
+autocompleted for you, and incorrect input will result in the crawl failing.
+
+Once you've chosen your url, select your search depth, the maximum number
+of link hops you're willing to travel from your main site. This parameter
+controls how long your search takes, and can help prevent your IP being blocked
+by your chosen site.
+
+Once you're done hit `Go`.
+
+### The bbc.co.uk as an example
+
+I can choose my url to be `https://www.bbc.co.uk`, set my depth to 3 and
+hit Go:
+
+![image](https://github.com/Connor56/crawl-a-site/assets/34070858/e7c63896-ea96-4952-9182-41be81bbfe4b)
+
+I get taken to the following screen:
+
+![image](https://github.com/Connor56/crawl-a-site/assets/34070858/81938311-af26-4fec-bedc-a50df989edb1)
+
+This screen updates in realtime telling me what urls have been visited
+and in what order in the left hand pane, and also keeps track of the most
+linked urls in the right hand pane.
+
+If you're like me and paranoid about getting your IP banned, you can halt
+the crawl by pressing the stop button. Currently, this ends the crawling
+process completely on the server and effectively ends your session. Your
+UI data is left on the screen for you to peruse if you're interested.
+
+The back button performs a similar function, except it doesn't just stop
+the crawl it also returns you to the home screen where you can enter a
+different url or change your search depth.
+
+
