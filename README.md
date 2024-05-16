@@ -27,6 +27,35 @@ For example:
 - [Powershell](https://en.wikipedia.org/wiki/PowerShell),
 - [zsh](https://en.wikipedia.org/wiki/Z_shell),
 
+### Warning
+
+These instructions have only been tested in Windows on Docker
+for [Windows Subsystem for Linx 2 (wsl2)](https://learn.microsoft.com/en-us/windows/wsl/install).
+It's probable the command will work on MacOS, but because nginx is using
+the `host.docker.internal` variable to proxy pass requests it may fail on
+Linux.
+
+If you have a Linux machine, and you find that the app is returning
+404s resource not found. Please look in the following file:
+
+```bash
+nginx/conf/nginx.conf
+```
+
+and alter the FastAPI server proxy pass section to fit Linux:
+
+```nginx
+# Proxy API requests to the FastAPI server
+        location /api/ {
+            proxy_pass http://host.docker.internal:8000/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_buffering off; # Ensure real-time updates are sent immediately
+        }
+```
+
 ## Clone the package to your local machine
 
 Run one of the following commands:
