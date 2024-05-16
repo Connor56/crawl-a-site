@@ -57,10 +57,10 @@ location /api/ {
 }
 ```
 
-This proxy passes traffic to localhost/api of the nginx container to
+This passes traffic from `localhost/api` of the nginx container to
 host port 8000. But the `host.docker.internal` may be specific to
-Windows and MacOS. If this is the case, alter this so that it works
-in your linux system.
+Windows and MacOS. If this is the case, alter this so that the
+networking works on your Linux system.
 
 ## Clone the package to your local machine
 
