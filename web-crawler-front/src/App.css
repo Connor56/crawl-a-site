@@ -1,0 +1,151 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background-color: #252525;
+}
+
+.title {
+  font-size: 4em;
+  color: white;
+  text-shadow: 0px 10px 5px black;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 1%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+a.white_link {
+  color: #dadada;
+}
+
+a.white_link:hover {
+  color: white;
+}
+
+a.white_link:visited {
+  color: #dadada;
+}
+
+.url_holder {
+  background-color: #5f5f5f;
+  padding: 5px 10px 12px;
+  display: inline-block;
+  margin-bottom: 10px;
+  border-radius: 2em;
+  font-size: 2em;
+  color: #dadada;
+  box-shadow: 0px 5px 15px black;
+}
+
+.url_holder_home {
+  background-color: #5f5f5f;
+  padding: 10px 10px;
+  display: inline-block;
+  border-radius: 2em;
+  font-size: 2em;
+  color: #dadada;
+  box-shadow: 0px 5px 15px black;
+  border-style: none;
+}
+
+/* .bottom.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+} */
+
+.container {
+  margin: 40px 30px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  /* color: #dadada; */
+  color: white;
+  height: 100%;
+  min-height: 100%;
+  flex-grow: 1;
+}
+
+.box {
+  border-color: #dadada;
+  border-width: 5px;
+  border-style: solid;
+  border-radius: 20px;
+  width: 100%;
+  height: calc(100vh - 110px);
+  margin: 10px;
+  overflow: auto;
+  position: relative;
+}
+
+.box_title {
+  position: sticky;
+  top: 1em;
+  text-shadow: 0px 5px 10px black;
+  z-index: 1;
+}
+
+.standard_button {
+  background-color: #dadada;
+  padding: 10px 10px;
+  display: inline-block;
+  border-radius: 2em;
+  font-size: 2em;
+  color: #252525;
+  box-shadow: 0px 5px 15px black;
+  border-style: none;
+  margin-top: 0.5em;
+  pointer-events: auto;
+}
+
+.stop_button {
+  background-color: #ed0909;
+  /* position: fixed; */
+  z-index: 1;
+  /* top: 3%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  color: white;
+  margin-bottom: 1em;
+}
+
+.stop_button:hover {
+  color: black;
+}
+
+.standard_button:hover {
+  background-color: #949393;
+  cursor: pointer;
+}
+
+.stacked_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.search_depth {
+  width: 50%;
+  margin: auto;
+}
+
+.front_header {
+  color: white;
+}
