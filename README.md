@@ -283,15 +283,14 @@ I get taken to the following screen:
 
 ![image](https://github.com/Connor56/crawl-a-site/assets/34070858/81938311-af26-4fec-bedc-a50df989edb1)
 
-This screen updates in realtime telling me what urls have been visited
-and in what order in the left hand pane, and also keeps track of the most
-linked urls in the right hand pane.
+This screen updates in real-time with the URLs that have been visited
+and in what order in the left-hand pane, and the most linked URLs in
+the right-hand pane.
 
 If you're like me and paranoid about getting your IP banned, you can halt
-the crawl by pressing the stop button. Currently, this ends the crawling
-process completely on the server and effectively ends your session. Your
-UI data is left on the screen for you to peruse if you're interested.
+the crawl by pressing the stop button. Currently, this ends your crawling
+session but leaves your crawl's data in the UI for you to peruse.
 
-The back button performs a similar function, except it doesn't just stop
-the crawl it also returns you to the home screen where you can enter a
-different url or change your search depth.
+The back button performs a similar function, except it also returns you
+to the home screen where you can enter a different URL or change your
+search depth.
