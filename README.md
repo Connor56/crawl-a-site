@@ -1,5 +1,7 @@
 # Overview
 
+## Introduction
+
 Crawl a Site is a full stack web application that lets you crawl a
 domain from an initial starting point up to a maximum link depth. The
 project uses session keys and Server Sent Events to update the client
@@ -7,9 +9,58 @@ as the crawl progresses.
 
 The tech stack is:
 
-- FastAPI and Python for the backend.
+- FastAPI, Python, and httpx for the backend.
 - Nginx as the web server and reverse proxy.
 - React and javascript as the frontend.
+
+## Tech Stack Discussion
+
+These were my focuses for the build:
+
+1. Serve the frontend statically, and centre as much compute as possible on the client side.
+2. Run multiple crawls concurrently.
+3. Minimise data transfer between the server and the client.
+4. Stream server updates in realtime.
+5. Multiple workers for each crawl with a shared task queue.
+6. Prevent exponential growth of work by limiting link depth.
+7. Graceful shutdown of resources when a crawl is finished.
+8. Manual shutdown of the crawl and its resources when required by the user.
+9. Containerise the frontend and the backend separately so they can be horizontally scaled.
+
+### Frontend
+
+I chose Nginx as my web server to help with points 1, 2, and 9. It's
+lightweight and able to spread work across multiple backend servers
+if necessary for horizontal scalability. It's also considered the best
+in class web server for static files.
+
+However, despite it's performance, S3 and CloudFront would outperform
+it, which led to my first trade off. I opted to design my stack
+so that it could be deployed in the cloud, but not be tied to the
+cloud. I did this to keep my application platform agnostic, and my
+code faster to develop. As the application is in an alpha stage, I
+didn't consider the time and money investment required for
+cloud deployment worthwhile.
+
+### Backend
+
+I built my backend server using Asycnhronous functions and FastAPI. I
+chose FastAPI because it's the fastest, lightest weight Python
+application server available. I limited myself to Python frameworks
+because time constraints meant I had to focus on what I knew best.
+This was the biggest trade off I made in tech stack, development
+speed for performance. If I had more time, I would have explored the
+available frameworks in Go, for example Fibre and Echo. I believe my
+trade off in this situation was rational, because it allowed me to
+develop the features I was asked to develop, and provides a good
+benchmark and scaffold to build from.
+
+Because of
+
+The asynchronous design of the API allows multiple crawl processes to
+be run at the same time. Each process is assigned a session ID and
+session details that allow the client to interact with the process
+after its begun.
 
 # How to run using Docker
 
@@ -204,5 +255,3 @@ UI data is left on the screen for you to peruse if you're interested.
 The back button performs a similar function, except it doesn't just stop
 the crawl it also returns you to the home screen where you can enter a
 different url or change your search depth.
-
-
