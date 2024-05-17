@@ -122,19 +122,19 @@ For example:
 
 These instructions have only been tested in Windows on Docker
 for [Windows Subsystem for Linx 2 (wsl2)](https://learn.microsoft.com/en-us/windows/wsl/install).
-It's probable the command will work on MacOS, but because nginx is using
+It's probable they will work on MacOS, but because nginx is using
 the `host.docker.internal` variable to proxy pass requests it may fail on
 Linux.
 
 If you have a Linux machine, and you find that the app is returning
-`404`s resource not found, starting from the `crawl-a-site` root
-directory, look in the following file:
+"`404 resource not found", go to the `crawl-a-site` root
+directory and look in the following file:
 
 ```bash
 nginx/conf/nginx.conf
 ```
 
-and find the FastAPI server proxy pass section:
+Go to the FastAPI server proxy pass section:
 
 ```nginx
 # Proxy API requests to the FastAPI server
